@@ -4,26 +4,27 @@ import com.usermanagment.dto.UserDto;
 import com.usermanagment.service.UserService;
 import com.usermanagment.service.impl.UserServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
+@RequestMapping("/userDetails")
 public class UserController {
 
     @Autowired
     UserService userService;
 
-    @PostMapping("/saveUser")
+    @PostMapping
     public String saveUser(@RequestBody UserDto userDto){
-        userService.saveUser(userDto);
-        return "User Saved successfully";
+        return userService.saveUser(userDto);
     }
 
-    @PostMapping("/updateUser")
-    public String updateUser(){
+    @PutMapping
+    public String updateUser(@RequestBody UserDto userDto){
+        return userService.updateUser(userDto);
+    }
 
-        return "User Updated successfully";
+    @DeleteMapping
+    public String deleteUser(@RequestParam String email){
+        return userService.deleteUser(email);
     }
 }

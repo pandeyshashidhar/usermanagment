@@ -6,14 +6,18 @@ import jakarta.persistence.*;
 @Table(name = "user")
 public class UserEntity {
 
-    @Column(name = "user_id")
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "user_id")
     private Long userId;
-    @Column(name = "user_email")
+
+    @Column(name = "user_email", unique = true)
     private String email;
+
     @Column(name = "user_password")
     private String password;
+
     @Column(name = "user_phone_number")
     private String phoneNumber;
 
