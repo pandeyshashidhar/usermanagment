@@ -1,11 +1,17 @@
 package com.usermanagment.service.impl;
 
 import com.usermanagment.dao.UserRepository;
+import com.usermanagment.dto.UserAddressDto;
 import com.usermanagment.dto.UserDto;
+import com.usermanagment.entity.UserAddressEntity;
 import com.usermanagment.entity.UserEntity;
 import com.usermanagment.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.Set;
 
 @Service
 public class UserServiceImpl implements UserService {
@@ -27,6 +33,21 @@ public class UserServiceImpl implements UserService {
             userEntity.setEmail(userDto.getEmail());
             userEntity.setPassword(userDto.getPassword());
             userEntity.setPhoneNumber(userDto.getPhoneNumber());
+            if(userDto.getAddressDtoList()!=null && userDto.getAddressDtoList().size()>0){
+                Set<UserAddressEntity> userAddressEntitySet = new HashSet<>();
+                for(UserAddressDto userAddressDto: userDto.getAddressDtoList()){
+                    UserAddressEntity userAddressEntity = new UserAddressEntity();
+                    userAddressEntity.setAddressLine1(userAddressDto.getAddressLine1());
+                    userAddressEntity.setAddressLine2(userAddressDto.getAddressLine2());
+                    userAddressEntity.setCity(userAddressDto.getCity());
+                    userAddressEntity.setZipCode(userAddressDto.getZipCode());
+                    userAddressEntity.setState(userAddressDto.getState());
+                    userAddressEntity.setCountry(userAddressDto.getCountry());
+                    userAddressEntity.setUserEntity(userEntity);
+                    userAddressEntitySet.add(userAddressEntity);
+                }
+                userEntity.setAddressEntitySet(userAddressEntitySet);
+            }
             userRepository.save(userEntity);
         }catch (Exception e){
 

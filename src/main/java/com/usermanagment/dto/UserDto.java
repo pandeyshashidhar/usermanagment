@@ -1,10 +1,14 @@
 package com.usermanagment.dto;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class UserDto {
 
     private String email;
     private String password;
     private String phoneNumber;
+    private List<UserAddressDto> addressDtoList = new ArrayList<>();
 
     public String getEmail() {
         return email;
@@ -28,5 +32,13 @@ public class UserDto {
 
     public void setPhoneNumber(String phoneNumber) {
         this.phoneNumber = phoneNumber;
+    }
+
+    public List<UserAddressDto> getAddressDtoList() {
+        return addressDtoList;
+    }
+
+    public void setAddressDtoList(List<UserAddressDto> addressDtoList) {
+        this.addressDtoList = addressDtoList;
     }
 }

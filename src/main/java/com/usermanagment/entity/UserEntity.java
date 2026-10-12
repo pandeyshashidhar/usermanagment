@@ -2,6 +2,9 @@ package com.usermanagment.entity;
 
 import jakarta.persistence.*;
 
+import java.util.HashSet;
+import java.util.Set;
+
 @Entity
 @Table(name = "user")
 public class UserEntity {
@@ -20,6 +23,9 @@ public class UserEntity {
 
     @Column(name = "user_phone_number")
     private String phoneNumber;
+
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "userEntity")
+    Set<UserAddressEntity> addressEntitySet = new HashSet<>();
 
     public Long getUserId() {
         return userId;
@@ -51,5 +57,13 @@ public class UserEntity {
 
     public void setPhoneNumber(String phoneNumber) {
         this.phoneNumber = phoneNumber;
+    }
+
+    public Set<UserAddressEntity> getAddressEntitySet() {
+        return addressEntitySet;
+    }
+
+    public void setAddressEntitySet(Set<UserAddressEntity> addressEntitySet) {
+        this.addressEntitySet = addressEntitySet;
     }
 }
